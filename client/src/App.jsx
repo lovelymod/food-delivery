@@ -3,6 +3,8 @@ import "./App.css";
 // page
 import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
+import FoodmenuPage from "./pages/FoodmenuPage";
+import FoodDetail from "./pages/FoodDetail";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material";
@@ -33,6 +35,8 @@ function App() {
         <Routes>
           <Route path="/" element={<LoginPage />} />
           <Route path="/home" element={<HomePage />} />
+          <Route path="/foodmenu" element={<FoodmenuPage />} />
+          <Route path="/fooddetail" element={<FoodDetail />} />
         </Routes>
       </Router>
       {/* </div> */}

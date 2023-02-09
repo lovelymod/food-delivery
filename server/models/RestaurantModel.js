@@ -4,11 +4,11 @@ import db from "../config/database.js";
 const { DataTypes } = Sequelize;
 
 const Restuarant = db.define("restuarants", {
-  Name: {
+  restaurant_name: {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  Foods: {
+  restaurant_logo: {
     type: DataTypes.STRING,
     allowNull: false,
   },
