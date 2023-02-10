@@ -13,6 +13,19 @@ export const getAllFoodByID = async (req, res) => {
   }
 };
 
+export const getFoodsinOrder = async (req, res) => {
+  try {
+    const response = await Food.findAll({
+      where: {
+        id: req.params.id,
+      },
+    });
+    res.status(200).json(response);
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
 export const getFoodByID = async (req, res) => {
   try {
     const response = await Food.findOne({

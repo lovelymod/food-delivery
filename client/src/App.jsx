@@ -5,6 +5,7 @@ import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
 import FoodmenuPage from "./pages/FoodmenuPage";
 import FoodDetail from "./pages/FoodDetail";
+import BuckgetPage from "./pages/BuckgetPage";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material";
@@ -37,6 +38,7 @@ function App() {
           <Route path="/home" element={<HomePage />} />
           <Route path="/foodmenu" element={<FoodmenuPage />} />
           <Route path="/fooddetail" element={<FoodDetail />} />
+          <Route path="/buckget" element={<BuckgetPage />} />
         </Routes>
       </Router>
       {/* </div> */}

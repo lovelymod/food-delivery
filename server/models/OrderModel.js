@@ -1,12 +1,36 @@
 import { Sequelize } from "sequelize";
-import db from "../config/database";
+import db from "../config/database.js";
 
 const { DataTypes } = Sequelize;
 
-const Order = db.define("order", {
-  OrderList: {
+const Order = db.define("orderlist", {
+  restaurant_id: {
     type: DataTypes.STRING,
-    allowNull: true,
+    allowNull: false,
+  },
+  food_id: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  food_name: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  food_logo: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  amount: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+  total: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+  status: {
+    type: DataTypes.STRING,
+    allowNull: false,
   },
 });
 
