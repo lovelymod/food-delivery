@@ -11,8 +11,8 @@ function Ordered() {
   const [navOpen, setnavOpen] = useState(false);
   const [orderList, setOrderList] = useState([]);
 
-  const placingOrder = (item) => {
-    navigate("/placing", { state: { item: item } });
+  const orderAgain = (id) => {
+    navigate("/fooddetail", { state: { id: id } });
   };
 
   useEffect(() => {
@@ -31,7 +31,7 @@ function Ordered() {
       <div className="flex h-fit w-full flex-col gap-5 px-2 pt-20 xl:w-[700px]">
         {orderList.map((item) => (
           <Card key={item.id} sx={{ boxShadow: "5", borderRadius: "25px", overflow: "auto" }}>
-            <CardActionArea onClick={() => placingOrder(item)} sx={{ display: "flex" }}>
+            <CardActionArea onClick={() => orderAgain(item.food_id)} sx={{ display: "flex" }}>
               <CardMedia component="img" image={item.food_logo} alt={item.food_name} sx={{ width: 150 }} />
               <CardContent sx={{ flexGrow: "1" }}>
                 <Typography gutterBottom variant="body1" component="div">
