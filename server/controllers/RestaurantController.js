@@ -9,6 +9,15 @@ export const getRestuarants = async (req, res) => {
   }
 };
 
+export const getRestuarantsbyID = async (req, res) => {
+  try {
+    const response = await Restuarant.findOne({ where: { id: req.params.id } });
+    res.status(200).json(response);
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
 export const createRestuarant = async (req, res) => {
   try {
     await Restuarant.create(req.body);

@@ -21,7 +21,8 @@ const SideBar = ({ navOpen, setnavOpen }) => {
     },
     {
       icon: <ListAltIcon />,
-      title: "Order & Order again",
+      title: "Order",
+      func: () => navigate("/order"),
     },
     {
       icon: <SettingsIcon />,

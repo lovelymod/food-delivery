@@ -3,10 +3,11 @@ import { AppBar, Toolbar, IconButton, Typography } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const AppBarr = ({ navOpen, setnavOpen }) => {
   const navigate = useNavigate();
+  const localhost = useLocation();
   const toggleMenu = () => setnavOpen(!navOpen);
   return (
     <AppBar>
@@ -15,7 +16,7 @@ const AppBarr = ({ navOpen, setnavOpen }) => {
           {navOpen ? <CloseIcon /> : <MenuIcon />}
         </IconButton>
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          Discover
+          {localhost.pathname.substring(1).toUpperCase()}
         </Typography>
         <IconButton aria-label="bucket" size="large" onClick={() => navigate("/buckget")}>
           <ShoppingBasketIcon />

@@ -37,6 +37,19 @@ export const getOrder = async (req, res) => {
   }
 };
 
+export const getDelivOrder = async (req, res) => {
+  try {
+    const response = await Order.findAll({
+      where: {
+        status: "delivered",
+      },
+    });
+    res.status(200).json(response);
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+
 export const updateOrder = async (req, res) => {
   try {
     await Order.update(req.body, {

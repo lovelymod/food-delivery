@@ -6,6 +6,8 @@ import HomePage from "./pages/HomePage";
 import FoodmenuPage from "./pages/FoodmenuPage";
 import FoodDetail from "./pages/FoodDetail";
 import BuckgetPage from "./pages/BuckgetPage";
+import OrderPlacing from "./pages/OrderPlacing";
+import Ordered from "./pages/Ordered";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material";
@@ -39,6 +41,8 @@ function App() {
           <Route path="/foodmenu" element={<FoodmenuPage />} />
           <Route path="/fooddetail" element={<FoodDetail />} />
           <Route path="/buckget" element={<BuckgetPage />} />
+          <Route path="/placing" element={<OrderPlacing />} />
+          <Route path="/order" element={<Ordered />} />
         </Routes>
       </Router>
       {/* </div> */}

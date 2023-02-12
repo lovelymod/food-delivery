@@ -1,12 +1,12 @@
 import AppBarr from "../components/Appbar";
 import SideBar from "../components/SizeBar";
 
-import { Card, CardContent, CardActionArea, CardMedia, Typography } from "@mui/material";
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { Card, CardActionArea, CardContent, CardMedia, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
-function BuckgetPage() {
+function Ordered() {
   const navigate = useNavigate();
   const [navOpen, setnavOpen] = useState(false);
   const [orderList, setOrderList] = useState([]);
@@ -17,14 +17,13 @@ function BuckgetPage() {
 
   useEffect(() => {
     const getOrder = async () => {
-      await axios.get("http://localhost:5000/getorder").then((res) => {
+      await axios.get("http://localhost:5000/getdeliveredorder").then((res) => {
         setOrderList(res.data);
       });
     };
 
     getOrder();
   }, []);
-
   return (
     <div className="flex h-screen w-screen justify-center xl:py-5">
       <AppBarr navOpen={navOpen} setnavOpen={setnavOpen} />
@@ -53,4 +52,4 @@ function BuckgetPage() {
   );
 }
 
-export default BuckgetPage;
+export default Ordered;
