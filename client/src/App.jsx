@@ -3,12 +3,14 @@ import "./App.css";
 // page
 import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
+import Restaurants from "./pages/Restaurants";
+import BuckgetPage from "./pages/BuckgetPage";
+import Ordered from "./pages/Ordered";
 import FoodmenuPage from "./pages/FoodmenuPage";
 import FoodDetail from "./pages/FoodDetail";
-import BuckgetPage from "./pages/BuckgetPage";
 import OrderPlacing from "./pages/OrderPlacing";
-import Ordered from "./pages/Ordered";
 
+// utill
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material";
 
@@ -33,19 +35,19 @@ const theme = createTheme({
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      {/* <div className="App h-screen w-screen bg-white"> */}
       <Router>
         <Routes>
           <Route path="/" element={<LoginPage />} />
-          <Route path="/home" element={<HomePage />} />
-          <Route path="/foodmenu" element={<FoodmenuPage />} />
-          <Route path="/fooddetail" element={<FoodDetail />} />
-          <Route path="/buckget" element={<BuckgetPage />} />
-          <Route path="/placing" element={<OrderPlacing />} />
-          <Route path="/order" element={<Ordered />} />
+          <Route path="/home" element={<HomePage />}>
+            <Route path="restaurants" element={<Restaurants />} />
+            <Route path="bucket" element={<BuckgetPage />} />
+            <Route path="order" element={<Ordered />} />
+            <Route path="foodmenu" element={<FoodmenuPage />} />
+            <Route path="fooddetail" element={<FoodDetail />} />
+            <Route path="placing" element={<OrderPlacing />} />
+          </Route>
         </Routes>
       </Router>
-      {/* </div> */}
     </ThemeProvider>
   );
 }

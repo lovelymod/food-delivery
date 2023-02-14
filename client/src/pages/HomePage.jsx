@@ -1,49 +1,64 @@
+// components
 import AppBarr from "../components/Appbar";
 import SideBar from "../components/SizeBar";
 
-import axios from "axios";
-import { Card, CardContent, CardActionArea, CardMedia, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+// icons
+import HomeIcon from "@mui/icons-material/Home";
+import ListAltIcon from "@mui/icons-material/ListAlt";
+import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
+import PersonIcon from "@mui/icons-material/Person";
+import SettingsIcon from "@mui/icons-material/Settings";
+
+// utill
+import { Paper, BottomNavigation, BottomNavigationAction, Badge } from "@mui/material";
+import { useState } from "react";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
+
+// hooks
+import useGetOrder from "../hooks/useGetOrder";
 
 function HomePage() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const pathname = location.pathname.substring(6);
   const [navOpen, setnavOpen] = useState(false);
-  const [store, setStore] = useState([]);
-
-  const onTapb = (id) => {
-    navigate("/foodmenu", { state: { id: id } });
-  };
-
-  useEffect(() => {
-    const getRestaurant = async () => {
-      await axios.get("http://localhost:5000/getrestuarants").then((res) => {
-        setStore(res.data);
-      });
-    };
-
-    getRestaurant();
-  }, []);
+  const [value, setValue] = useState(
+    pathname === "restaurants" ? 0 : "" || pathname === "order" ? 1 : "" || pathname === "buckget" ? 2 : ""
+  );
+  const orderList = useGetOrder("http://localhost:5000/getorder", value);
 
   return (
-    <div className="flex h-screen w-screen flex-col">
+    <div className="flex h-screen w-screen flex-col items-center">
       <AppBarr navOpen={navOpen} setnavOpen={setnavOpen} />
       <SideBar navOpen={navOpen} setnavOpen={setnavOpen} />
 
-      <div className="grid h-fit w-full auto-rows-auto grid-cols-1 place-items-center gap-5 pt-20 pb-5 md:grid-cols-2 xl:md:grid-cols-4">
-        {store.map((item) => (
-          <Card key={item.id} sx={{ maxWidth: 300, boxShadow: "5", borderRadius: "25px" }}>
-            <CardActionArea onClick={() => onTapb(item.id)}>
-              <CardMedia component="img" image={item.restaurant_logo} alt={item.restaurant_name} />
-              <CardContent>
-                <Typography gutterBottom variant="h5" component="div">
-                  {item.restaurant_name}
-                </Typography>
-              </CardContent>
-            </CardActionArea>
-          </Card>
-        ))}
-      </div>
+      <Outlet />
+
+      <Paper className="xl:hidden" sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }} elevation={3}>
+        <BottomNavigation
+          showLabels
+          value={value}
+          onChange={(event, newValue) => {
+            setValue(newValue);
+          }}
+        >
+          <BottomNavigationAction label="Home" icon={<HomeIcon />} onClick={() => navigate("/home/restaurants")} />
+          <BottomNavigationAction label="Orders" icon={<ListAltIcon />} onClick={() => navigate("/home/order")} />
+
+          <BottomNavigationAction
+            label="Bucket"
+            icon={
+              <Badge badgeContent={orderList.length} color="error">
+                <ShoppingBasketIcon />
+              </Badge>
+            }
+            onClick={() => navigate("/home/bucket")}
+          />
+
+          <BottomNavigationAction label="Profile" icon={<PersonIcon />} />
+          <BottomNavigationAction label="Setting" icon={<SettingsIcon />} />
+        </BottomNavigation>
+      </Paper>
     </div>
   );
 }
