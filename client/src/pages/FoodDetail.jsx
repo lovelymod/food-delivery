@@ -7,13 +7,13 @@ import axios from "axios";
 import { Button, Typography } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 
 function FoodDetail() {
   const location = useLocation();
   const navigate = useNavigate();
   const id = location.state.id;
   const orderID = location.state.orderID;
-  console.log("🚀 ~ file: FoodDetail.jsx:16 ~ orderID", orderID);
   const [food, setFood] = useState({});
   const [count, setCount] = useState(1);
   const total = food.food_price * count;
@@ -24,9 +24,8 @@ function FoodDetail() {
   const addtoBucket = async () => {
     const id = food.id;
     await axios.get(`http://localhost:5000/getoneorder/${id}`).then(async (res) => {
-      // ? true:update false:create
-      if (res.data) {
-        // todo update order
+      if (res.data && count !== 0) {
+        //  update order
         await axios
           .patch("http://localhost:5000/updateorder", {
             id: res.data.id,
@@ -38,11 +37,8 @@ function FoodDetail() {
           })
           .catch((err) => console.log(err));
       } else {
-        // todo delete order if count = false and orderID = true
-        if (count === 0 && orderID !== 0) {
-          console.log("delete order here");
-        } else {
-          // todo create order if count !== 0 and orderID === 0
+        //  create
+        if (count !== 0 && orderID === 0) {
           await axios
             .post("http://localhost:5000/createorder", {
               restaurant_id: food.restaurant_id,
@@ -54,9 +50,25 @@ function FoodDetail() {
               status: "pending",
             })
             .then((res) => {
-              res.status === 201 && navigate("/home/foodmenu", { state: { id: food.restaurant_id } });
+              res.status === 201 && navigate("/home/foodmenu", { state: { id: food.restaurant_id } }, 1300);
             })
             .catch((err) => console.log(err));
+
+          //  delete
+        } else if (count === 0 && orderID !== 0) {
+          await axios
+            .delete(`http://localhost:5000/deleteorder/${orderID}`)
+            .then((res) => {
+              res.status === 200 && navigate("/home/bucket");
+            })
+            .catch((err) => console.log(err));
+
+          // alert not have order
+        } else {
+          toast.error("ออเดอร์นี้ยังไม่ได้อยู่ในตระกร้า !!", {
+            duration: 1500,
+            position: "top-center",
+          });
         }
       }
     });
@@ -79,6 +91,7 @@ function FoodDetail() {
 
   return (
     <div className="flex h-full w-full flex-col gap-5 bg-white pt-20 xl:w-[700px] xl:rounded-lg xl:drop-shadow-2xl">
+      <Toaster />
       {/* detail */}
       <img className="h-[300px] w-full object-contain" src={`/${food.food_logo}`} alt={food.food_name} />
       <div className="flex justify-between px-5">

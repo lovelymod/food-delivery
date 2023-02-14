@@ -27,7 +27,7 @@ function OrderPlacing() {
       })
       .then((res) => {
         if (res.status === 200) {
-          navigate("/home");
+          navigate("/home/restaurants");
         }
       })
       .catch((err) => console.log(err));
