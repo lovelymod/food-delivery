@@ -7,8 +7,8 @@ import useGetOrder from "../hooks/useGetOrder";
 
 function BuckgetPage() {
   const navigate = useNavigate();
-  const orderList = useGetOrder("http://localhost:5000/getorder");
-  orderList.sort((a, b) => b.id - a.id);
+  const orderList = useGetOrder("http://localhost:5000/getorder").sort((a, b) => b.id - a.id);
+
   const placingOrder = (item) => {
     navigate("/home/placing", { state: { item: item } });
   };
