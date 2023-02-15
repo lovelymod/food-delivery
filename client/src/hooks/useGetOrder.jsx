@@ -1,13 +1,16 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-const useGetOrder = (url, val) => {
+const useGetOrder = (url, value) => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
+    const customer_id = localStorage.getItem("customer_id");
+    const realUrl = url + "/" + customer_id;
+
     const getOrder = async () => {
       await axios
-        .get(url)
+        .get(realUrl)
         .then((res) => {
           setData(res.data);
         })
@@ -15,7 +18,7 @@ const useGetOrder = (url, val) => {
     };
 
     getOrder();
-  }, [val]);
+  }, [value]);
 
   return data;
 };

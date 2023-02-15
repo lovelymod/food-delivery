@@ -1,6 +1,6 @@
 // utill
 import { Card, CardContent, CardActionArea, CardMedia, Typography } from "@mui/material";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 // hooks
 import useFoods from "../hooks/useFoodbyRestaurant";
@@ -8,11 +8,11 @@ import useFoods from "../hooks/useFoodbyRestaurant";
 function FoodmenuPage() {
   const navigate = useNavigate();
   const location = useLocation();
-  const id = location.state.id;
-  const foodsList = useFoods(`http://localhost:5000/getallfood/${id}`);
+  const resID = location.state.resID;
+  const foodsList = useFoods(`http://localhost:5000/getallfood/${resID}`);
 
   const onTap = (id) => {
-    navigate("/home/fooddetail", { state: { id: id, orderID: 0 } });
+    navigate("/home/fooddetail", { state: { foodID: id, orderID: 0 } });
   };
 
   return (

@@ -16,7 +16,7 @@ function BuckgetPage() {
   return (
     <div className="flex h-fit w-full flex-col gap-5 px-2 pb-20 pt-20 xl:w-[700px] xl:pb-5">
       {orderList.map((item) => (
-        <Card key={item.id} sx={{ boxShadow: "5", borderRadius: "25px", overflow: "auto" }}>
+        <Card key={item.id} sx={{ boxShadow: "5", borderRadius: "25px" }}>
           <CardActionArea onClick={() => placingOrder(item)} sx={{ display: "flex" }}>
             <CardMedia
               component="img"

@@ -11,9 +11,9 @@ import {
 const router = express.Router();
 
 router.post("/createorder", createOrder);
-router.get("/getorder", getOrder);
-router.get("/getdeliveredorder", getDelivOrder);
-router.get("/getoneorder/:id", getoneOrder);
+router.get("/getorder/:id", getOrder);
+router.get("/getdeliveredorder/:id", getDelivOrder);
+router.get("/getoneorder/:customer_id/:food_id", getoneOrder);
 router.patch("/updateorder", updateOrder);
 router.delete("/deleteorder/:id", deleteOrder);
 

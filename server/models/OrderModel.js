@@ -4,6 +4,10 @@ import db from "../config/database.js";
 const { DataTypes } = Sequelize;
 
 const Order = db.define("orderlist", {
+  customer_id: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
   restaurant_id: {
     type: DataTypes.STRING,
     allowNull: false,

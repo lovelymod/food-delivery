@@ -14,7 +14,8 @@ export const getoneOrder = async (req, res) => {
   try {
     const response = await Order.findOne({
       where: {
-        food_id: req.params.id,
+        customer_id: req.params.customer_id,
+        food_id: req.params.food_id,
         status: "pending",
       },
     });
@@ -28,6 +29,7 @@ export const getOrder = async (req, res) => {
   try {
     const response = await Order.findAll({
       where: {
+        customer_id: req.params.id,
         status: "pending",
       },
     });
@@ -41,6 +43,7 @@ export const getDelivOrder = async (req, res) => {
   try {
     const response = await Order.findAll({
       where: {
+        customer_id: req.params.id,
         status: "delivered",
       },
     });

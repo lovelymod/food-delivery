@@ -1,6 +1,6 @@
 // utill
 import { Card, CardContent, CardActionArea, CardMedia, Typography } from "@mui/material";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 // hooks
 import useRestaurants from "../hooks/useRestaurants";
@@ -10,7 +10,7 @@ function Restaurants() {
   const store = useRestaurants("http://localhost:5000/getrestuarants");
 
   const onTapb = (id) => {
-    navigate("/home/foodmenu", { state: { id: id } });
+    navigate("/home/foodmenu", { state: { resID: id } });
   };
 
   return (
