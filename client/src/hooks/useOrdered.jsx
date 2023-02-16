@@ -12,7 +12,7 @@ const useOrdered = (url) => {
       await axios
         .get(realUrl)
         .then((res) => {
-          setData(res.data);
+          setData(res.data.sort((a, b) => b.id - a.id));
         })
         .catch((err) => console.log(err));
     };

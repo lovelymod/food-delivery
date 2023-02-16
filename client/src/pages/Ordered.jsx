@@ -7,7 +7,7 @@ import useOrdered from "../hooks/useOrdered";
 
 function Ordered() {
   const navigate = useNavigate();
-  const orderedList = useOrdered("http://localhost:5000/getdeliveredorder").sort((a, b) => b.id - a.id);
+  const orderedList = useOrdered("http://localhost:5000/getdeliveredorder");
 
   const orderAgain = (id) => {
     navigate("/home/fooddetail", { state: { foodID: id } });
