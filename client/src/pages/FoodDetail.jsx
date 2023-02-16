@@ -13,35 +13,42 @@ function FoodDetail() {
   const location = useLocation();
   const navigate = useNavigate();
   const foodID = location.state.foodID;
-  const orderID = location.state.orderID;
   const [food, setFood] = useState({});
+  const customer_id = localStorage.getItem("customer_id");
   const [count, setCount] = useState(1);
   const total = food.food_price * count;
-  const customer_id = localStorage.getItem("customer_id");
 
   const increment = () => setCount((prev) => prev + 1);
   const decrement = () => count !== 0 && setCount((prev) => prev - 1);
 
-  // todo clean up  addbucket code!!
-  const addtoBucket2 = async () => {
-    const food_id = food.id;
-    await axios.get(`http://localhost:5000/getoneorder/${customer_id}/${food_id}`).then(async (res) => {
-      if (res.data && count !== 0) {
-        //  update order
-        await axios
-          .patch("http://localhost:5000/updateorder", {
-            id: res.data.id,
-            amount: count,
-            total: total,
-          })
-          .then((res) => {
-            if (res.status === 200) navigate("/home/bucket");
-          })
-          .catch((err) => console.log(err));
-      } else {
-        if (customer_id) {
-          //  create
-          if (count !== 0 && orderID === 0) {
+  const addtoBucket = async () => {
+    if (customer_id) {
+      await axios.get(`http://localhost:5000/getoneorder/${customer_id}/${foodID}`).then(async (res) => {
+        if (res.data) {
+          if (count !== 0) {
+            // todo update
+            await axios
+              .patch("http://localhost:5000/updateorder", {
+                id: res.data.id,
+                amount: count,
+                total: total,
+              })
+              .then((res) => {
+                if (res.status === 200) navigate("/home/bucket");
+              })
+              .catch((err) => console.log(err));
+          } else {
+            // todo delete
+            await axios
+              .delete(`http://localhost:5000/deleteorder/${res.data.id}`)
+              .then((res) => {
+                res.status === 200 && navigate("/home/bucket");
+              })
+              .catch((err) => console.log(err));
+          }
+        } else {
+          if (count !== 0) {
+            // todo create
             await axios
               .post("http://localhost:5000/createorder", {
                 customer_id: customer_id,
@@ -54,54 +61,40 @@ function FoodDetail() {
                 status: "pending",
               })
               .then((res) => {
-                res.status === 201 && navigate("/home/foodmenu", { state: { id: food.restaurant_id } }, 1300);
+                res.status === 201 && navigate("/home/foodmenu", { state: { resID: food.restaurant_id } }, 1300);
               })
               .catch((err) => console.log(err));
-
-            //  delete
-          } else if (count === 0 && orderID !== 0) {
-            await axios
-              .delete(`http://localhost:5000/deleteorder/${orderID}`)
-              .then((res) => {
-                res.status === 200 && navigate("/home/bucket");
-              })
-              .catch((err) => console.log(err));
-
-            // alert not have order
           } else {
+            // todo no order
             toast.error("ออเดอร์นี้ยังไม่ได้อยู่ในตระกร้า !!", {
               duration: 1500,
               position: "top-center",
             });
           }
-        } else {
-          toast.error("เข้าสู่ระบบก่อน", {
-            duration: 1500,
-            position: "top-center",
-          });
-          setTimeout(() => {
-            navigate("/");
-          }, 1300);
         }
-      }
-    });
-  };
-
-  const addtoBucket = async () => {
-    const food_id = food.id;
-    console.log("🚀 ~ file: FoodDetail.jsx:92 ~ food_id ", food_id);
+      });
+    } else {
+      // todo go login
+      toast.error("เข้าสู่ระบบก่อน", {
+        duration: 1500,
+        position: "top-center",
+      });
+      setTimeout(() => {
+        navigate("/");
+      }, 1300);
+    }
   };
 
   useEffect(() => {
     const getFood = async () => {
       await axios.get(`http://localhost:5000/getfood/${foodID}`).then(async (res) => {
         setFood(res.data);
-        // await axios
-        //   .get(`http://localhost:5000/getoneorder/${res.data.id}`)
-        //   .then((res) => {
-        //     res.data.amount ? setCount(res.data.amount) : setCount(1);
-        //   })
-        //   .catch((err) => {});
+        await axios
+          .get(`http://localhost:5000/getoneorder/${customer_id}/${foodID}`)
+          .then((res) => {
+            res.data.amount ? setCount(res.data.amount) : setCount(1);
+          })
+          .catch((err) => {});
       });
     };
     getFood();

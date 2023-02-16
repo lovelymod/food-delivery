@@ -1,7 +1,7 @@
 // utill
 import { Button, TextField, Typography } from "@mui/material";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 
@@ -31,6 +31,12 @@ function LoginPage() {
         });
       });
   };
+
+  useEffect(() => {
+    const cusID = localStorage.getItem("customer_id");
+    if (cusID) navigate(-1);
+  }, []);
+
   return (
     <div className="flex h-screen w-screen items-center justify-center bg-Meyellow">
       <Toaster />

@@ -10,7 +10,7 @@ function Ordered() {
   const orderedList = useOrdered("http://localhost:5000/getdeliveredorder").sort((a, b) => b.id - a.id);
 
   const orderAgain = (id) => {
-    navigate("/home/fooddetail", { state: { id: id } });
+    navigate("/home/fooddetail", { state: { foodID: id } });
   };
 
   return (

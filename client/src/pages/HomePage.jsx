@@ -17,14 +17,25 @@ import { Outlet, useLocation, useNavigate } from "react-router-dom";
 // hooks
 import useGetOrder from "../hooks/useGetOrder";
 
+// context
+
 function HomePage() {
   const navigate = useNavigate();
   const location = useLocation();
   const pathname = location.pathname.substring(6);
   const [navOpen, setnavOpen] = useState(false);
   const [value, setValue] = useState(
-    pathname === "restaurants" ? 0 : "" || pathname === "order" ? 1 : "" || pathname === "buckget" ? 2 : ""
+    pathname === "restaurants"
+      ? 0
+      : "" || pathname === "order"
+      ? 1
+      : "" || pathname === "buckget"
+      ? 2
+      : "" || pathname === "setting"
+      ? 4
+      : ""
   );
+
   const orderList = useGetOrder("http://localhost:5000/getorder", value);
 
   return (
@@ -55,8 +66,8 @@ function HomePage() {
             onClick={() => navigate("/home/bucket")}
           />
 
-          <BottomNavigationAction label="Profile" icon={<PersonIcon />} />
-          <BottomNavigationAction label="Setting" icon={<SettingsIcon />} />
+          <BottomNavigationAction label="Profile" icon={<PersonIcon />} onClick={() => navigate("/home/profile")} />
+          <BottomNavigationAction label="Setting" icon={<SettingsIcon />} onClick={() => navigate("/home/setting")} />
         </BottomNavigation>
       </Paper>
     </div>

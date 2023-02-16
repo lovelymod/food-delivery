@@ -12,7 +12,7 @@ function FoodmenuPage() {
   const foodsList = useFoods(`http://localhost:5000/getallfood/${resID}`);
 
   const onTap = (id) => {
-    navigate("/home/fooddetail", { state: { foodID: id, orderID: 0 } });
+    navigate("/home/fooddetail", { state: { foodID: id } });
   };
 
   return (

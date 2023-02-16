@@ -11,7 +11,7 @@ export const getRestuarants = async (req, res) => {
 
 export const getRestuarantsbyID = async (req, res) => {
   try {
-    const response = await Restuarant.findOne({ where: { id: req.params.id } });
+    const response = await Restuarant.findByPk(req.params.id);
     res.status(200).json(response);
   } catch (error) {
     console.log(error.message);

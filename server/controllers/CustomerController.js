@@ -9,6 +9,15 @@ export const createCustomer = async (req, res) => {
   }
 };
 
+export const getCustomer = async (req, res) => {
+  try {
+    const response = await Customer.findByPk(req.params.id);
+    res.status(200).json(response);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 export const loginCustumer = async (req, res) => {
   try {
     const response = await Customer.findAll({

@@ -12,6 +12,11 @@ const SideBar = ({ navOpen, setnavOpen }) => {
   const navigate = useNavigate();
   const closeNav = () => setnavOpen(false);
 
+  const onLogout = () => {
+    localStorage.removeItem("customer_id");
+    navigate("/");
+  };
+
   const navList = [
     {
       icon: <HomeIcon />,
@@ -21,6 +26,7 @@ const SideBar = ({ navOpen, setnavOpen }) => {
     {
       icon: <PersonIcon />,
       title: "Profile",
+      func: () => navigate("/home/profile"),
     },
     {
       icon: <ListAltIcon />,
@@ -30,11 +36,12 @@ const SideBar = ({ navOpen, setnavOpen }) => {
     {
       icon: <SettingsIcon />,
       title: "Setting",
+      func: () => navigate("/home/setting"),
     },
     {
       icon: <LogoutIcon />,
       title: "Logout",
-      func: () => navigate("/"),
+      func: onLogout,
     },
   ];
   return (

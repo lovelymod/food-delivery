@@ -33,6 +33,11 @@ function OrderPlacing() {
       .catch((err) => console.log(err));
   };
 
+  const editOrder = () => {
+    // navigate("/home/fooddetail", { state: { id: foodorder.food_id, orderID: foodorder.id } });
+    navigate("/home/fooddetail", { state: { foodID: foodorder.food_id } });
+  };
+
   return (
     <div className="flex h-full w-full flex-col gap-5 bg-white px-2 pt-20 xl:w-[700px] xl:rounded-xl xl:drop-shadow-2xl">
       {/* store */}
@@ -58,10 +63,7 @@ function OrderPlacing() {
       {/* food */}
       <div className="mt-5 flex flex-col gap-5">
         <Typography variant="h6">สรุปคำสั่งซื้อ</Typography>
-        <div
-          className="flex cursor-pointer flex-col"
-          onClick={() => navigate("/home/fooddetail", { state: { id: foodorder.food_id, orderID: foodorder.id } })}
-        >
+        <div className="flex cursor-pointer flex-col" onClick={editOrder}>
           <div className="flex justify-between gap-5">
             <Typography variant="body1" color="secondary">
               {foodorder.amount}x

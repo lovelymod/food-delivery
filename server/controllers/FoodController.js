@@ -28,11 +28,7 @@ export const getFoodsinOrder = async (req, res) => {
 
 export const getFoodByID = async (req, res) => {
   try {
-    const response = await Food.findOne({
-      where: {
-        id: req.params.id,
-      },
-    });
+    const response = await Food.findByPk(req.params.id);
     res.status(200).json(response);
   } catch (error) {
     console.log(error.message);
