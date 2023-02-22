@@ -1,5 +1,7 @@
 import express from "express";
 import cors from "cors";
+
+// route
 import RestuarantRoute from "./routes/RestuarantRoute.js";
 import FoodRoute from "./routes/FoodRoute.js";
 import OrderRoute from "./routes/OrderRoute.js";
